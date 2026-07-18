@@ -1,15 +1,24 @@
 config interface 'loopback'
-        option device 'lo'
-        option proto 'static'
-        option ipaddr '127.0.0.1'
-        option netmask '255.0.0.0'
+	option device 'lo'
+	option proto 'static'
+	option ipaddr '127.0.0.1'
+	option netmask '255.0.0.0'
 
 config device
-        option name 'br-lan'
-        option type 'bridge'
+	option name 'br-lan'
+	option type 'bridge'
 
 config interface 'lan'
-        option device 'br-lan'
-        option proto 'static'
-        option ipaddr '192.168.80.1'
-        option netmask '255.255.255.0'
+	option device 'br-lan'
+	option proto 'static'
+	option ipaddr '192.168.80.1'
+	option netmask '255.255.255.0'
+
+# 🌐 以下为补全的 WAN 口配置（插光猫上网使用）
+config interface 'wan'
+	option device 'eth1'
+	option proto 'dhcp'
+
+config interface 'wan6'
+	option device 'eth1'
+	option proto 'dhcpv6'
