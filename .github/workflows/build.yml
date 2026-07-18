@@ -3,21 +3,46 @@ name: Build AX6000
 on:
   workflow_dispatch:
 
+
 jobs:
+
   build:
+
     runs-on: ubuntu-22.04
+
+
     steps:
+
     - name: Checkout
       uses: actions/checkout@v4
 
+
     - name: Clone ImmortalWrt
       run: |
-        git clone --depth=1 -b v25.12.1 https://github.com/immortalwrt/immortalwrt.git source
+        git clone \
+        --depth=1 \
+        -b v25.12.1 \
+        https://github.com/immortalwrt/immortalwrt.git source
+
 
     - name: Install dependency
       run: |
         sudo apt update
-        sudo apt install -y build-essential clang flex bison g++ gawk gettext git libncurses-dev libssl-dev python3 rsync unzip
+        sudo apt install -y \
+        build-essential \
+        clang \
+        flex \
+        bison \
+        g++ \
+        gawk \
+        gettext \
+        git \
+        libncurses-dev \
+        libssl-dev \
+        python3 \
+        rsync \
+        unzip
+
 
     - name: Feeds
       working-directory: source
@@ -26,15 +51,18 @@ jobs:
         ./scripts/feeds update -a
         ./scripts/feeds install -a
 
-    - name: Copy files
+
+    - name: Copy configuration files
       run: |
+        cp .config source/
         cp -r files source/
 
-    - name: Config
+
+    - name: Defconfig
       working-directory: source
       run: |
-        cp ../.config .
         make defconfig
+
 
     - name: Compile
       working-directory: source
@@ -42,7 +70,8 @@ jobs:
         make download -j8
         make -j$(nproc)
 
-    - name: Upload
+
+    - name: Upload firmware
       uses: actions/upload-artifact@v4
       with:
         name: AX6000-firmware
