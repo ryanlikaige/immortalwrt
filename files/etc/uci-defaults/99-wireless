@@ -1,0 +1,22 @@
+#!/bin/sh
+
+uci set wireless.radio0.country='CN'
+uci set wireless.radio0.channel='3'
+uci set wireless.radio0.htmode='HE40'
+
+uci set wireless.radio1.country='CN'
+uci set wireless.radio1.channel='149'
+uci set wireless.radio1.htmode='HE80'
+
+uci set wireless.@wifi-iface[0].ssid='Ryan'
+uci set wireless.@wifi-iface[0].encryption='psk2'
+uci set wireless.@wifi-iface[0].key='TangoMoment'
+
+uci set wireless.@wifi-iface[1].ssid='Ryan_5G'
+uci set wireless.@wifi-iface[1].encryption='psk2'
+uci set wireless.@wifi-iface[1].key='TangoMoment'
+
+uci commit wireless
+wifi reload
+
+exit 0
