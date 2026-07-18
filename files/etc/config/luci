@@ -1,0 +1,11 @@
+config core 'main'
+	option lang 'zh_cn'
+	option mediaurlbase '/luci-static/argon'
+	option resourcebase '/luci-static/resources'
+
+config internal 'languages'
+	option zh_cn 'Language'
+
+config internal 'themes'
+	option Bootstrap '/luci-static/bootstrap'
+	option Argon '/luci-static/argon'
